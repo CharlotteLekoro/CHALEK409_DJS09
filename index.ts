@@ -8,9 +8,9 @@ import { Permissions , LoyaltyUser } from './enums'
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
 
-let isOpen: boolean
+let isLoggedIn: boolean
 
-const reviews : any[]= [
+const reviews : any[] = [
     
         name: 'Sheia',
         stars: 5,
@@ -28,7 +28,7 @@ const reviews : any[]= [
         stars: 4,
         loyaltyUser: Silver,
         date: '27-03-2021',
-        description: 'Great hosts, location was a bit further than said',
+        description: 'Great hosts, location was a bit further than said.',
 
     },
 
@@ -134,8 +134,20 @@ function populateUser(isReturning : boolean, userName : string ) {
     }
     userNameDisplay.innerHTML = userName
 }
-
 populateUser(you.isReturning, you.userName)
+
+let authorityStatus : any
+
+isLoggedIn = false
+
+function showDetails(authorityStatus: boolean | Permissions, element : HTMLDivElement, price: number) {
+   if (authorityStatus) {
+       const priceDisplay = document.createElement('div')
+       priceDisplay.innerHTML = price.toString() + '/night'
+       element.appendChild(priceDisplay)
+   }
+}
+
 
 // use your location, your current time, and the current temperature of your
 // location
