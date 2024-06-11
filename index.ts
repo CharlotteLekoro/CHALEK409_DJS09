@@ -1,10 +1,19 @@
-// Number Types mini-challenge 10 10.2
-// Write a function that will only accept numbers and attend to 
-// all TypeScript weakness flags.
-// : number
+// Type Assignment and Type Interference
+// add a isOpen variable and assign it the boolean type
+// Object Types
+// In this scrim, based on what we just learnt, can you change userName to firstName, then
+// add an age and lastName to the 'you' Object, making sure to account for it in the Specialised
+// Object for defining its structure.
+// Array Types
+// Can you add a stayedAt property to the you Object, that contains places you 
+// have stayed as strings, then add the correct key with assigned type to the 
+// existing Object Type?
+
 const returningUserDisplay = document.querySelector('#returning-user')
 const userNameDisplay = document.querySelector('#user')
 const reviewTotalDisplay = document.querySelector('#reviews')
+
+let isOpen : boolean
 
 const reviews = [
     {
@@ -35,10 +44,18 @@ function showReviewTotal(value: number, reviewer: string, isLoyalty: boolean) {
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
 
 
-const you = {
-    userName: 'Bobby',
-    isReturning: true,
+const you: {
+    firstName : string;
+    lastName: string;
+    isReturning: boolean;
+    age: number;
+} = {
+   firtName: 'Bobby',
+   lastName
+   isReturning: true,
 }
+
+console.log(you.userName)
 
 
 function populateUser(isReturning : boolean, userName : string ) {
