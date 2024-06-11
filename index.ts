@@ -62,7 +62,7 @@ type Property = {
       code: number;
       country: string;
     };
-    contact: string;
+    contact: [number, string];
     isAvailable: boolean;
   };
   
@@ -122,4 +122,7 @@ function populateUser(isReturning : boolean, userName : string ) {
 
 populateUser(you.isReturning, you.userName)
 
-
+// use your location, your current time, and the current temperature of your
+// location
+let currentLocation: [string, string, number] = ['London', '11:35', 17]
+footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
