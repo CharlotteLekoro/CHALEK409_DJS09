@@ -1,7 +1,13 @@
+//Interfaces
+// 1. Based on what we have learnt in this lesson, and what we discussed in the previous one,
+// please get rid of the uncessary code in this project and replace it with the Review interface
+// 2. Move the interface to its own file for the next lesson
+
 import { showReviewTotal, populateUser, showDetails } from './utils'
 import { Permissions , LoyaltyUser } from './enums'
 import { showReviewTotal, populateUser, showDetails, getTopTwoReviews} from './utils'
-import { Price, Country } from './types'
+import { Price, Country} from './types'
+import { Review } from './interfaces'
 const propertyContainer = document.querySelector('.properties')
 const reviewContainer = document.querySelector('.reviews')
 const container = document.querySelector('.container')
@@ -18,7 +24,7 @@ const footer = document.querySelector('.footer')
 
 let isLoggedIn: boolean
 
-const reviews : any[] = [
+const reviews: Review[] = [
     
         name: 'Sheia',
         stars: 5,
@@ -140,6 +146,7 @@ type Property = {
       loyaltyUser: LoyaltyUser;
       date: string;
   }[] ) : void {
+    function addReviews(array: Review[]) : void {
       if (!count ) {
           count++
           const topTwo = getTopTwoReviews(array)
@@ -152,6 +159,7 @@ type Property = {
           container.removeChild(button) 
       }
   }
+}
   
   button.addEventListener('click', () => addReviews(reviews))
 
