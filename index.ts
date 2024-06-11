@@ -1,10 +1,18 @@
-// Any Type
-// 1. Add a description property to Omars review, and give it a value. 
-// 2. Next try addressing what TypeScript does not like.
-// 3. Now, imagine we DON'T know what kind of review object we are going to 
-// get next.
 import { showReviewTotal, populateUser, showDetails } from './utils'
 import { Permissions , LoyaltyUser } from './enums'
+import { showReviewTotal, populateUser, showDetails, getTopTwoReviews} from './utils'
+import { Price, Country } from './types'
+const propertyContainer = document.querySelector('.properties')
+const reviewContainer = document.querySelector('.reviews')
+const container = document.querySelector('.container')
+const button = document.querySelector('button')
+const footer = document.querySelector('.footer')
+
+export function showReviewTotal(value: number, reviewer: string, isLoyalty: LoyaltyUser) {
+    const iconDisplay = LoyaltyUser.GOLD_USER ? '⭐' : ''
+    reviewTotalDisplay.innerHTML = value.toString() + ' Review' + makeMultiple(value) + '| last reviewed by ' + reviewer + ' ' + iconDisplay
+}
+
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
 
@@ -56,14 +64,16 @@ const you: {
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
 }
 
-const ADMIN = 'admin'
-const READ_ONLY = 'read-only'
-
-
 enum Permissions {
-    ADMIN,
-    READ_ONLY
+    ADMIN = 'ADMIN', 
+    READ_ONLY = 'READ_ONLY'
 }
+enum LoyaltyUser {
+    GOLD_USER = 'GOLD_USER',
+    SILVER_USER = 'SILVER_USER',
+    BRONZE_USER = 'BRONZE_USER'
+}
+
 
 
 //Properties
@@ -123,6 +133,28 @@ type Property = {
     }
   ];
   
+  let count = 0
+  function addReviews(array: {
+      name: string;
+      stars: number;
+      loyaltyUser: LoyaltyUser;
+      date: string;
+  }[] ) : void {
+      if (!count ) {
+          count++
+          const topTwo = getTopTwoReviews(array)
+          for (let i = 0; i < topTwo.length; i++) {
+              const card = document.createElement('div')
+              card.classList.add('review-card')
+              card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
+              reviewContainer.appendChild(card)
+          }
+          container.removeChild(button) 
+      }
+  }
+  
+  button.addEventListener('click', () => addReviews(reviews))
+
   for (let i = 0; i < properties.length; i++) {
     const image = document.createElement('img')
     image.setAttribute('src', properties[i].image)
@@ -136,7 +168,7 @@ console.log(you.userName)
 
 
 function populateUser(isReturning : boolean, userName : string ) {
-    if (isReturning == true){
+    if (isReturning ){
         returningUserDisplay.innerHTML = 'back'
     }
     userNameDisplay.innerHTML = userName
@@ -147,14 +179,19 @@ let authorityStatus : any
 
 isLoggedIn = false
 
-function showDetails(authorityStatus: boolean | Permissions, element : HTMLDivElement, price: number) {
-   if (authorityStatus) {
-       const priceDisplay = document.createElement('div')
-       priceDisplay.innerHTML = price.toString() + '/night'
-       element.appendChild(priceDisplay)
-   }
+
+export function showDetails(value: boolean | Permissions, element : HTMLDivElement, price: number) {
+    if (value) {
+        const priceDisplay = document.createElement('div')
+        priceDisplay.innerHTML = price.toString() + '/night'
+        element.appendChild(priceDisplay)
+    }
 }
 
+export function makeMultiple(value: number) : string {
+    if (value > 1 || value == 0 ) {
+        return 's'
+    } else return ''
 
 // use your location, your current time, and the current temperature of your
 // location
