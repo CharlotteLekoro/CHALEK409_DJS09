@@ -1,29 +1,35 @@
-// Enum Types
+// Any Type
+// 1. Add a description property to Omars review, and give it a value. 
+// 2. Next try addressing what TypeScript does not like.
+// 3. Now, imagine we DON'T know what kind of review object we are going to 
+// get next.
 import { showReviewTotal, populateUser } from './utils'
+import { Permissions , LoyaltyUser } from './enums'
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
 
-import { showReviewTotal, populateUser } from './utils'
 let isOpen: boolean
 
-const reviews : {
+const reviews : any[]= [
     
         name: 'Sheia',
         stars: 5,
-        loyaltyUser: true,
+        loyaltyUser: Gold,
         date: '01-04-2021'
-    },
+],
     {
         name: 'Andrzej',
         stars: 3,
-        loyaltyUser: false,
+        loyaltyUser: Bronze,
         date: '28-03-2021'
     },
     {
         name: 'Omar',
         stars: 4,
-        loyaltyUser: true,
-        date: '27-03-2021'
+        loyaltyUser: Silver,
+        date: '27-03-2021',
+        description: 'Great hosts, location was a bit further than said',
+
     },
 
 
