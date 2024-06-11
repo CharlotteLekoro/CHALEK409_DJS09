@@ -3,7 +3,7 @@
 // 2. Next try addressing what TypeScript does not like.
 // 3. Now, imagine we DON'T know what kind of review object we are going to 
 // get next.
-import { showReviewTotal, populateUser } from './utils'
+import { showReviewTotal, populateUser, showDetails } from './utils'
 import { Permissions , LoyaltyUser } from './enums'
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
@@ -123,6 +123,13 @@ type Property = {
     }
   ];
   
+  for (let i = 0; i < properties.length; i++) {
+    const image = document.createElement('img')
+    image.setAttribute('src', properties[i].image)
+    card.appendChild(image)
+    showDetails(you.permissions, card, properties[i].price)
+    propertyContainer.appendChild(card)
+}
 
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
 console.log(you.userName)
